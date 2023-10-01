@@ -38,7 +38,7 @@ class Benchmarks {
 
       // TODO parameterize
 
-      val sqlPartial =
+      /*val sqlPartial =
           "SELECT passenger_count, " +
               "MIN(CAST(fare_amount AS double)) AS min_fare, MAX(CAST(fare_amount AS double)) AS max_fare, SUM(CAST(fare_amount AS double)) AS sum_fare " +
               "FROM tripdata " +
@@ -50,7 +50,9 @@ class Benchmarks {
               "MAX(min_fare), " +
               "SUM(max_fare) " +
               "FROM tripdata " +
-              "GROUP BY passenger_count"
+              "GROUP BY passenger_count"*/
+      val sqlPartial = "SELECT first_name, last_name FROM tripdata LIMIT 10"
+      val sqlFinal = sqlPartial
 
       val path = System.getenv("BENCH_PATH")
       val resultFile = System.getenv("BENCH_RESULT_FILE")
@@ -82,7 +84,8 @@ private fun sqlAggregate(
     settings: Map<String, String>
 ) {
   val start = System.currentTimeMillis()
-  val files = getFiles(path)
+  //val files = getFiles(path)
+  val files = listOf("employee.csv")
   val deferred =
       files.map { file ->
         GlobalScope.async {
